@@ -1,0 +1,25 @@
+<style>
+   
+    .gallery-item { width: 200px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #fff; }
+    .gallery-item img { width: 100%; height: 150px; object-fit: cover; }
+    .gallery-item p { padding: 10px; margin: 0; font-size: 0.9rem; text-align: center; word-break: break-all; }
+</style>
+
+<script>
+  
+    async function loadGallery() {
+        const response = await fetch('/images'); 
+        const images = await response.json();
+        const gallery = document.getElementById('gallery');
+        
+        gallery.innerHTML = images.map(img => `
+            <div class="gallery-item">
+                <img src="/uploads/${img.filename}" alt="Image">
+                <p>${img.filename}</p>
+            </div>
+        `).join('');
+    }
+
+    
+    loadGallery();
+</script>
